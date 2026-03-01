@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>upward expand · fixed bottom-right</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-ambient"></div>
+  
+  <!-- MAIN WRAPPER: fixed di kanan bawah, flex column-reverse (tombol di bawah, menu di atas) -->
+  <div class="fab-wrapper" id="fabWrapper">
+    <!-- menu container: items muncul di ATAS tombol -->
+    <div class="fab-menu">
+      <!-- ITEM 1 (PALING ATAS) - Download CV -->
+      <a href="contohats.pdf" target="_blank" class="menu-item" data-stagger="1">
+        <span class="item-icon svg-icon doc-svg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
+            <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+          </svg>
+        </span>
+        <span class="item-label">Download CV</span>
+      </a>
+
+      <!-- ITEM 2 (TENGAH) - Kirim Email -->
+      <a href="mailto:fikrymutsaqoful@gmail.com" class="menu-item" data-stagger="2">
+        <span class="item-icon svg-icon mail-svg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <path d="M22 7L12 14 2 7"></path>
+          </svg>
+        </span>
+        <span class="item-label">Kirim Email</span>
+      </a>
+
+      <!-- ITEM 3 (PALING BAWAH, LANGSUNG DI ATAS BUTTON) - GitHub Saya -->
+      <a href="https://github.com/vviqry" target="_blank" class="menu-item" data-stagger="3">
+        <img src="github-icon.svg" alt="GitHub" class="item-icon github-img">
+        <span class="item-label">GitHub</span>
+      </a>
+    </div>
+
+    <!-- MAIN TOGGLE BUTTON (SELALU DI PALING BAWAH) -->
+    <button class="fab-toggle" id="fabToggle" aria-label="Toggle menu">
+      <span class="toggle-icon"></span>
+    </button>
+  </div>
+
+  <div class="footnote">bottom-right · upward stack</div>
+  <script src="script.js"></script>
+</body>
+</html>

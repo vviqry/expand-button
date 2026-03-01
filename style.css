@@ -1,0 +1,211 @@
+/* style.css – fix: posisi kanan bawah, menu muncul ke ATAS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #0a0d13;
+  position: relative;
+}
+
+/* background gelap */
+.bg-ambient {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 70% 80%, #1e2635 0%, #090c11 100%);
+  z-index: 0;
+}
+
+/* WRAPPER UTAMA: FIXED DI KANAN BAWAH */
+.fab-wrapper {
+  position: fixed;
+  bottom: 2rem;      /* 2rem dari bawah */
+  right: 2rem;       /* 2rem dari kanan */
+  z-index: 100;
+  display: flex;
+  flex-direction: column; /* KRUSIAL: tombol di bawah, menu di ATAS tombol */
+  align-items: flex-end;
+  gap: 1rem;
+  pointer-events: none;
+}
+
+/* TOGGLE BUTTON - selalu di paling bawah */
+.fab-toggle {
+  pointer-events: auto;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(18, 28, 42, 0.7);
+  backdrop-filter: blur(16px) saturate(200%);
+  -webkit-backdrop-filter: blur(16px) saturate(200%);
+  border: 2px solid rgba(0, 255, 200, 0.45);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(0, 255, 200, 0.3) inset, 0 0 25px rgba(0, 255, 200, 0.5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.fab-toggle:hover {
+  transform: scale(1.08);
+  border-color: #b0fff5;
+  background: rgba(28, 45, 68, 0.8);
+  box-shadow: 0 15px 40px rgba(0, 255, 200, 0.8), 0 0 0 2px rgba(0, 255, 200, 0.8) inset;
+}
+
+/* Icon plus */
+.toggle-icon {
+  display: block;
+  width: 28px;
+  height: 28px;
+  position: relative;
+  transition: transform 0.5s cubic-bezier(0.4, 1.4, 0.6, 1.2);
+}
+
+.toggle-icon::before,
+.toggle-icon::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(145deg, #c6fff5, #6effe6);
+  border-radius: 12px;
+  box-shadow: 0 0 15px #00ffe0;
+}
+
+.toggle-icon::before {
+  width: 28px;
+  height: 3px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.toggle-icon::after {
+  width: 3px;
+  height: 28px;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.fab-wrapper.expanded .toggle-icon {
+  transform: rotate(225deg);
+}
+
+/* MENU CONTAINER - items akan tampil di ATAS toggle karena column-reverse */
+.fab-menu {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;  /* urutan item dari atas ke bawah */
+  align-items: flex-end;
+  gap: 0.9rem;
+}
+
+/* BASE MENU ITEM - muncul dengan efek stagger */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px 12px 20px;
+  background: rgba(18, 28, 42, 0.55);
+  backdrop-filter: blur(16px) saturate(200%);
+  -webkit-backdrop-filter: blur(16px) saturate(200%);
+  border-radius: 60px;
+  border: 1px solid rgba(0, 255, 200, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+  text-decoration: none;
+  color: #f0fcff;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  transition: all 0.25s ease;
+  width: max-content;
+
+  /* STATE TERSEMBUNYI (default) */
+  opacity: 0;
+  transform: translateY(40px) scale(0.9);
+  transform-origin: bottom right; /* animasi muncul dari arah tombol */
+  transition: opacity 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1), transform 0.35s cubic-bezier(0.2, 1.1, 0.3, 1.2), background 0.2s, border-color 0.2s;
+  pointer-events: none;
+}
+
+/* STATE MUNCUL (expanded) */
+.fab-wrapper.expanded .menu-item {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* STAGGER DELAY: item paling bawah (data-stagger="3") muncul pertama */
+.fab-wrapper.expanded .menu-item[data-stagger="3"] { /* GitHub Saya (paling bawah) */
+  transition-delay: 0.05s;
+}
+.fab-wrapper.expanded .menu-item[data-stagger="2"] { /* Kirim Email (tengah) */
+  transition-delay: 0.15s;
+}
+.fab-wrapper.expanded .menu-item[data-stagger="1"] { /* Download CV (paling atas) */
+  transition-delay: 0.25s;
+}
+
+/* HOVER EFFECT */
+.menu-item:hover {
+  background: rgba(40, 60, 90, 0.75);
+  border-color: #aafff0;
+  box-shadow: 0 15px 35px rgba(0, 255, 200, 0.7), 0 0 25px #4effe0;
+  color: white;
+  transform: translateX(-6px) scale(1.02);
+}
+
+/* Icon styling */
+.item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(0 0 8px #00ffe0);
+}
+
+.github-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px #0ff);
+}
+
+.svg-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: #d6fff5;
+  stroke-width: 1.9;
+  filter: drop-shadow(0 0 8px #2affde);
+  transition: stroke 0.2s;
+}
+
+.menu-item:hover .svg-icon svg {
+  stroke: #ffffff;
+}
+
+.item-label {
+  font-size: 1rem;
+  font-weight: 500;
+  text-shadow: 0 0 12px rgba(0, 255, 200, 0.7);
+  white-space: nowrap;
+}
+
+/* footer kecil */
+.footnote {
+  position: fixed;
+  bottom: 1rem;
+  left: 1.5rem;
+  color: #3e6370;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.4;
+  z-index: 1;
+}
